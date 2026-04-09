@@ -1,0 +1,15 @@
+/* Estilo del menu */
+    .navbar {
+    background-color: #36558e !important;
+    font-family: 'Roboto Condensed',Helvetica,Arial,Lucida,sans-serif;
+    }
+
+    .navbar .nav-link {
+    color: white !important;
+    transition: all 0.3s ease;
+    }
+
+    .navbar .nav-link:hover {
+    color: black !important;
+    transform: translateY(-3px);
+    }

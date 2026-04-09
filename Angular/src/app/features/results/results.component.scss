@@ -1,0 +1,11 @@
+   /* Fondo personalizado para el acordeón abierto de resultados por competicion */
+    .accordion-button:not(.collapsed) {
+      background-color: #36558e !important;
+      color: white !important;
+    }
+
+    /* Fondo para los botones cerrados */
+    .accordion-button.collapsed {
+      background-color: #f0f0f0;
+      color: #333 !important;
+    }

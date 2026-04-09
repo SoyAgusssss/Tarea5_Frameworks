@@ -1,0 +1,33 @@
+<!-- Modal de Inscripción -->
+  <div class="modal fade" id="inscripcionModal" tabindex="-1" aria-labelledby="inscripcionModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <form id="formInscripcion" class="modal-content">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title" id="inscripcionModalLabel">Inscripción a competición</h5>
+          <button class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Nombre del equipo/jugador</label>
+            <input type="text" class="form-control" name="nombreEquipo" required autofocus>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Correo electrónico</label>
+            <input type="email" class="form-control" name="correo" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Competiciones</label>
+            <select class="form-select" name="comp" required>
+              <option value="futbol">Fútbol</option>
+              <option value="baloncesto">Baloncesto</option>
+              <option value="tenis">Tenis</option>
+              <option value="voleibol">Voleibol</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success btn-animado">Completar inscripción</button>
+        </div>
+      </form>
+    </div>
+  </div>

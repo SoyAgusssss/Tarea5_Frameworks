@@ -1,0 +1,18 @@
+[
+  {
+    "_id": "1",
+    "usuario": "prueba",
+    "email": "prueba@test.com",
+    "rol": "capitan",
+    "equipo": "Equipo Prueba",
+    "deporte": "futbol"
+  },
+  {
+    "_id": "2",
+    "usuario": "prueba2",
+    "email": "prueba2@test.com",
+    "rol": "usuario",
+    "equipo": "Equipo Prueba 2",
+    "deporte": "futbol"
+  }
+]

@@ -1,0 +1,147 @@
+<div class="container my-4">
+
+  <!-- FORMULARIO CREACIÓN (ADMIN) -->
+  <div *ngIf="usuarioActual?.rol === 'admin' && !partidoEditando" class="mb-4 p-4 border rounded bg-light shadow-sm">
+    <h3 class="mb-3 text-center">Crear nuevo partido</h3>
+    <div class="row g-2">
+
+      <div class="col-md-4">
+        <label class="form-label">Deporte</label>
+        <select [(ngModel)]="nuevoPartido.deporte" class="form-select">
+          <option value="" disabled selected>Selecciona un deporte</option>
+          <option *ngFor="let d of deportesDisponibles" [value]="d">{{ d }}</option>
+        </select>
+      </div>
+
+      <div class="col-md-4">
+        <label class="form-label">Equipo 1</label>
+        <input type="text" placeholder="Equipo 1" [(ngModel)]="nuevoPartido.equipo1" class="form-control">
+      </div>
+
+      <div class="col-md-4">
+        <label class="form-label">Equipo 2</label>
+        <input type="text" placeholder="Equipo 2" [(ngModel)]="nuevoPartido.equipo2" class="form-control">
+      </div>
+
+      <div class="col-md-4">
+        <label class="form-label">Fecha y hora</label>
+        <input type="datetime-local" [(ngModel)]="nuevoPartido.fecha" class="form-control">
+      </div>
+
+      <div class="col-md-4">
+        <label class="form-label">Árbitro</label>
+        <input type="text" placeholder="Árbitro" [(ngModel)]="nuevoPartido.arbitro" class="form-control">
+      </div>
+
+      <div class="col-md-4">
+        <label class="form-label">Estado</label>
+        <select [(ngModel)]="nuevoPartido.estado" class="form-select">
+          <option value="pendiente">Pendiente</option>
+          <option value="finalizado">Finalizado</option>
+        </select>
+      </div>
+
+    </div>
+
+    <div class="text-center mt-3">
+      <button class="btn btn-success" (click)="crearPartido()">Crear partido</button>
+    </div>
+  </div>
+
+  <!-- FORMULARIO EDICIÓN (ADMIN) -->
+  <div *ngIf="usuarioActual?.rol === 'admin' && partidoEditando" class="mb-4 p-4 border rounded bg-light shadow-sm">
+    <h3 class="mb-3 text-center">Editar partido</h3>
+    <div class="row g-2">
+
+      <div class="col-md-4">
+        <label class="form-label">Deporte</label>
+        <select [(ngModel)]="partidoEditando.deporte" class="form-select">
+          <option *ngFor="let d of deportesDisponibles" [value]="d">{{ d }}</option>
+        </select>
+      </div>
+
+      <div class="col-md-4">
+        <label class="form-label">Equipo 1</label>
+        <input type="text" placeholder="Equipo 1" [(ngModel)]="partidoEditando.equipo1" class="form-control">
+      </div>
+
+      <div class="col-md-4">
+        <label class="form-label">Equipo 2</label>
+        <input type="text" placeholder="Equipo 2" [(ngModel)]="partidoEditando.equipo2" class="form-control">
+      </div>
+
+      <div class="col-md-4">
+        <label class="form-label">Fecha y hora</label>
+        <input type="datetime-local" [(ngModel)]="partidoEditando.fecha" class="form-control">
+      </div>
+
+      <div class="col-md-4">
+        <label class="form-label">Árbitro</label>
+        <input type="text" placeholder="Árbitro" [(ngModel)]="partidoEditando.arbitro" class="form-control">
+      </div>
+
+      <div class="col-md-4">
+        <label class="form-label">Estado</label>
+        <select [(ngModel)]="partidoEditando.estado" class="form-select">
+          <option value="pendiente">Pendiente</option>
+          <option value="finalizado">Finalizado</option>
+        </select>
+      </div>
+
+    </div>
+
+    <div class="text-center mt-3">
+      <button class="btn btn-primary me-2" (click)="guardarEdicion()">Guardar cambios</button>
+      <button class="btn btn-secondary" (click)="cancelarEdicion()">Cancelar</button>
+    </div>
+  </div>
+
+  <!-- TABLA DE PARTIDOS -->
+  <div *ngFor="let deporte of deDeporte | keyvalue" class="mb-5">
+    <h3 class="mb-3">{{ deporte.key }}</h3>
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered align-middle">
+        <thead class="table-dark">
+          <tr>
+            <th>Jornada</th>
+            <th>Equipo 1</th>
+            <th>Goles/Puntos</th>
+            <th>Equipo 2</th>
+            <th>Goles/Puntos</th>
+            <th>Fecha</th>
+            <th *ngIf="usuarioActual?.rol === 'capitan'">Actualizar</th>
+            <th *ngIf="usuarioActual?.rol === 'admin'">Editar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let partido of deporte.value; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ partido.equipo1 }}</td>
+            <td>{{ partido.goles1 || partido.puntos1 }}</td>
+            <td>{{ partido.equipo2 }}</td>
+            <td>{{ partido.goles2 || partido.puntos2 }}</td>
+            <td>{{ partido.fecha | date:'short' }}</td>
+            <td *ngIf="usuarioActual?.rol === 'capitan'">
+              <div class="d-flex gap-1">
+                <input type="number" placeholder="Goles1" #g1 class="form-control form-control-sm">
+                <input type="number" placeholder="Goles2" #g2 class="form-control form-control-sm">
+                <button class="btn btn-sm btn-primary" (click)="actualizarResultado(partido, g1.valueAsNumber, g2.valueAsNumber)">Guardar</button>
+              </div>
+            </td>
+            <td *ngIf="usuarioActual?.rol === 'admin'">
+              <button class="btn btn-warning btn-sm" (click)="editarPartido(partido)">Editar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+
+
+
+
+
+

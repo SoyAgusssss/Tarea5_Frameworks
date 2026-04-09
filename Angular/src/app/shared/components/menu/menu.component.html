@@ -1,0 +1,54 @@
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow">
+  <div class="container-fluid">
+
+    <!-- Logo -->
+    <a class="navbar-brand d-flex align-items-center" routerLink="/home">
+      <img src="assets/img/logo/logo-maestre-calatrava.png"
+           alt="Logo IES Maestre de Calatrava"
+           style="height:40px;">
+    </a>
+
+    <!-- Botón hamburguesa -->
+    <button class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#mainNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="mainNavbar">
+
+      <!-- Menú -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 text-center text-lg-start">
+        <li class="nav-item"><a class="nav-link" routerLink="/home">Inicio</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/teams">Equipos</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/results">Resultados</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/clasifications">Clasificación</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/players">Jugadores</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/referee">Árbitros</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/contact">Contacto</a></li>
+      </ul>
+
+      <!-- Acciones -->
+      <div class="d-flex flex-column flex-lg-row align-items-stretch align-items-lg-center gap-2">
+
+        <a class="btn btn-warning btn-sm" routerLink="/register">
+          <i class="bi bi-pencil-square"></i> Inscripción
+        </a>
+
+        <a class="btn btn-outline-light btn-sm" routerLink="/login">
+          <i class="fas fa-sign-in-alt"></i> Login
+        </a>
+
+        <!-- Redes -->
+        <div class="d-none d-lg-flex gap-2 ms-2">
+          <a href="#" class="text-white fs-5"><i class="bi bi-instagram"></i></a>
+          <a href="#" class="text-white fs-5"><i class="bi bi-facebook"></i></a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</nav>
+
+

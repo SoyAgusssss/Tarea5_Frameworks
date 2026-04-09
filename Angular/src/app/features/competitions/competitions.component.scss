@@ -1,0 +1,7 @@
+   /* Cards de competiciones */
+    .card-competicion {
+      transition: box-shadow .2s;
+    }
+    .card-competicion:hover {
+      box-shadow: 0 2px 12px rgba(0,123,255,0.22);
+    }

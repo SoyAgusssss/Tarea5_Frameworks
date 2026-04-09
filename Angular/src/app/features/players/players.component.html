@@ -1,0 +1,44 @@
+<section id="jugadores" class="container my-5">
+  <h2 class="mb-4"><i class="bi bi-person"></i> Jugadores</h2>
+
+  <!-- Buscador -->
+  <form class="mb-3">
+    <div class="input-group">
+      <input
+        type="search"
+        class="form-control"
+        placeholder="Buscar jugador por nombre..."
+        [(ngModel)]="buscador"
+        name="buscadorJugadores"
+        (input)="0"
+      >
+      <button class="btn btn-secondary btn-animado" type="button">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </form>
+
+  <!-- Listado filtrado -->
+  <div class="row g-4">
+    <div class="col-md-4" *ngFor="let jugador of jugadoresFiltrados">
+      <div class="card shadow-sm animate__animated animate__fadeIn jugador-card">
+        <div class="card-body">
+          <h5 class="card-title">{{ jugador.usuario }}</h5>
+          <span class="badge bg-primary mb-1">{{ jugador.deporte }}</span>
+          <p>{{ jugador.equipo }}</p>
+
+          <button class="btn btn-outline-primary btn-sm btn-animado"
+                  data-bs-toggle="modal"
+                  [attr.data-bs-target]="'#' + jugador.modalId">
+            Ver ficha
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Modal de jugadores -->
+<app-modal-players [jugadores]="jugadores"></app-modal-players>
+
+

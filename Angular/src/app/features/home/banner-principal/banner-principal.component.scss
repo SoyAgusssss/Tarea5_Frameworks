@@ -1,0 +1,22 @@
+    /* Estilo banner principal */
+    .hero-section {
+      background-image: url('/assets/img/banner-principal/fondo-banner-principal.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      color: white;
+      padding: 200px 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-section::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      z-index: -1;
+    }

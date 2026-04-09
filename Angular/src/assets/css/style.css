@@ -1,0 +1,135 @@
+    /* Estilo del menu */
+    .navbar {
+    background-color: #36558e !important;
+    font-family: 'Roboto Condensed',Helvetica,Arial,Lucida,sans-serif;
+    }
+
+    .navbar .nav-link {
+    color: white !important;
+    transition: all 0.3s ease;
+    }
+
+    .navbar .nav-link:hover {
+    color: black !important;
+    transform: translateY(-3px);
+    }
+
+    /* Estilo banner principal */
+    .hero-section {
+      background-image: url('fondo-banner-principal.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      color: white;
+      padding: 200px 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-section::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      z-index: -1;
+    }
+
+    /*Fondo personalizado para noticias y algún apartado más */
+    .fondo-personalizado-noticia {
+      background-color: rgba(54, 85, 142, 0.95);
+      padding: 1.5rem; 
+    }
+
+    .encabezado-personalizado-emergente {
+      background-color: #36558e;
+    }
+
+    /* Tabla de clasificaciones*/
+    .encabezado-futbol {
+      background-color: #36558e !important;
+    }
+
+    .encabezado-futbol th {
+      color: white;
+      font-weight: bold;
+      text-align: center;
+  }
+
+    body {
+      padding-top: 70px;
+      margin: -5px !important;
+    }
+
+    /* Fondo personalizado para el acordeón abierto de resultados por competicion */
+    .accordion-button:not(.collapsed) {
+      background-color: #36558e !important;
+      color: white !important;
+    }
+
+    /* Fondo para los botones cerrados */
+    .accordion-button.collapsed {
+      background-color: #f0f0f0;
+      color: #333 !important;
+    }
+
+    /* Efecto hover animado en botones */
+    .btn-animado {
+      transition: transform 0.2s, box-shadow 0.2s;
+      background-color: #b6162f !important;
+      border-color: #b6162f !important;
+      color: white !important;
+    }
+    .btn-animado:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 18px rgba(0,0,0,.12);
+      background-color: white !important;
+      color: #b6162f !important;
+      border-color: white !important;
+    }
+
+    /* Cards de competiciones */
+    .card-competicion {
+      transition: box-shadow .2s;
+    }
+    .card-competicion:hover {
+      box-shadow: 0 2px 12px rgba(0,123,255,0.22);
+    }
+
+    /* Footer estilo */
+    footer {
+      background: #212529;
+      color: #fff;
+    }
+    .footer-link {
+      color: #adb5bd;
+      text-decoration: none;
+      margin-right: 16px;
+    }
+    .footer-link:hover { color: #fff; }
+    .carousel-img {
+      object-fit: cover;
+      height: 320px;
+      width: 100%;
+    }
+    
+    /* Ajustes responsive de la imagen de carrusel */
+    @media (max-width: 767px) {
+      .carousel-img { height: 160px; }
+    }
+
+    /* Fondo de la cabecera de los modales de los jugadores, de la etiqueta de tipo de deporte y etiqueta de los árbitros */
+    div.modal-header, span.badge.bg-primary.mb-1, span.badge.bg-success.mb-1 {
+      background-color: #36558e !important;
+    }
+
+    span#carruselContador.text-primary.fs-5 {
+        color: #36558e !important;
+    }
+
+    /* Estilo carrusel noticias */
+    .carousel-caption {
+      position: static !important;
+}
