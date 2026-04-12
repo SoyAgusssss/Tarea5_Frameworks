@@ -9,7 +9,9 @@ class LegacyTeamsController extends Controller
 {
     public function index()
     {
-        return response()->json(LegacyTeam::all());
+        $teams = LegacyTeam::select(['id', 'nombre', 'deporte', 'capitan'])->get();
+        return response()->json($teams)
+            ->header('Cache-Control', 'public, max-age=30');
     }
 
     public function store(Request $request)

@@ -9,8 +9,11 @@ class LegacyPlayersController extends Controller
 {
     public function index()
     {
-        $jugadores = LegacyUsuario::where('rol', 'usuario')->get();
-        return response()->json($jugadores);
+        $jugadores = LegacyUsuario::where('rol', 'usuario')
+            ->select(['id', 'usuario', 'email', 'rol', 'equipo', 'deporte'])
+            ->get();
+        return response()->json($jugadores)
+            ->header('Cache-Control', 'public, max-age=30');
     }
 
     public function store(Request $request)

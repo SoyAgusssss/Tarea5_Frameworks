@@ -35,7 +35,7 @@ class LegacyAuthController extends Controller
         $data = $request->validate([
             'usuario' => 'required|string|max:255',
             'email' => 'required|email|max:255',
-            'password' => 'required|string|max:255',
+            'password' => 'required|string|min:1|max:255',
             'rol' => 'nullable|in:usuario,admin,capitan,arbitro',
             'equipo' => 'nullable|string|max:255',
             'deporte' => 'nullable|string|max:255',
@@ -71,6 +71,10 @@ class LegacyAuthController extends Controller
 
     public function getByRole(string $rol)
     {
-        return response()->json(LegacyUsuario::where('rol', $rol)->get());
+        $usuarios = LegacyUsuario::where('rol', $rol)
+            ->select(['id', 'usuario', 'email', 'rol', 'equipo', 'deporte'])
+            ->get();
+        return response()->json($usuarios)
+            ->header('Cache-Control', 'public, max-age=30');
     }
 }
