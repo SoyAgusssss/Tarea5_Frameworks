@@ -1,4 +1,4 @@
-name: Test Angular
+name: CI Proyecto
 
 on:
   workflow_dispatch:
@@ -8,13 +8,13 @@ on:
     branches: [ "main" ]
 
 jobs:
-  angular-tests:
-    name: Angular Unit + Integration
+  frontend-ci:
+    name: Frontend Angular (build + test)
     runs-on: ubuntu-latest
 
     defaults:
       run:
-        working-directory: .
+        working-directory: frontend
 
     steps:
       - name: Checkout
@@ -25,10 +25,13 @@ jobs:
         with:
           node-version: 18
           cache: npm
-          cache-dependency-path: package-lock.json
+          cache-dependency-path: frontend/package-lock.json
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Build Angular
+        run: npm run build -- --configuration production
 
       - name: Run Angular tests
         run: npm run test:ci
@@ -38,64 +41,34 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: angular-coverage
-          path: coverage
+          path: frontend/coverage
 
-  cypress-e2e:
-    name: Cypress E2E
+  backend-ci:
+    name: Backend Laravel (tests)
     runs-on: ubuntu-latest
-    needs: angular-tests
-    services:
-      mongodb:
-        image: mongo:7
-        ports:
-          - 27017:27017
-        options: >-
-          --health-cmd "mongosh --quiet --eval 'db.runCommand({ ping: 1 })'"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
 
     defaults:
       run:
-        working-directory: .
+        working-directory: backend
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
         with:
-          node-version: 18
-          cache: npm
-          cache-dependency-path: package-lock.json
+          php-version: '8.2'
+          tools: composer:v2
+          coverage: none
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Install Composer dependencies
+        run: composer install --no-interaction --prefer-dist --no-progress
 
-      - name: Install backend dependencies
-        run: npm ci --prefix backend
+      - name: Prepare Laravel app key
+        run: |
+          cp .env.example .env
+          php artisan key:generate
 
-      - name: Run Cypress E2E
-        uses: cypress-io/github-action@v6
-        with:
-          working-directory: .
-          start: |
-            npm run start -- --host 0.0.0.0 --port 4200
-            node backend/index.js
-          wait-on: 'http://localhost:4200, http://localhost:3000'
-          wait-on-timeout: 180
-          browser: chrome
-          spec: cypress/e2e/**/*.cy.ts
-        env:
-          MONGO_URI: mongodb://127.0.0.1:27017/proyecto_ut2_ci
-          PORT: 3000
-
-      - name: Upload Cypress artifacts
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: cypress-artifacts
-          path: |
-            cypress/screenshots
-            cypress/videos
+      - name: Run Laravel tests
+        run: php artisan test
