@@ -1,6 +1,9 @@
+/// <reference types="jasmine" />
+
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PlayersComponent } from './players.component';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { PlayerService } from '../../core/player.service';
 import { of } from 'rxjs';
 import { environment } from '../../../environments/environment';
@@ -8,8 +11,6 @@ import { environment } from '../../../environments/environment';
 const playerServiceMock = {
   getPlayers: jasmine.createSpy('getPlayers')
 };
-
-const jExpect = <T>(actual: T) => expect(actual) as unknown as jasmine.Matchers<T>;
 
 
 
@@ -26,6 +27,7 @@ describe('PlayersComponent - Unitarias', () => {
     await TestBed.configureTestingModule({
       declarations: [PlayersComponent],
       imports: [HttpClientTestingModule],
+      schemas: [NO_ERRORS_SCHEMA],
       providers: [
         { provide: PlayerService, useValue: playerServiceMock }
       ]
@@ -33,11 +35,12 @@ describe('PlayersComponent - Unitarias', () => {
 
     fixture = TestBed.createComponent(PlayersComponent);
     component = fixture.componentInstance;
+    playerServiceMock.getPlayers.calls.reset();
   });
 
   // Test 1 -> El componente se crea
   it('El componente se crea', () => {
-    jExpect(component).toBeTruthy();
+    expect(component).toBeTruthy();
   });
 
   // Test 2 -> Los jugadores cargan al iniciar
@@ -52,8 +55,9 @@ describe('PlayersComponent - Unitarias', () => {
 
     component.ngOnInit();
 
-    jExpect(component.jugadores.length).toBe(2);
-    jExpect(component.jugadores[0].modalId).toBe('modalJugador_1');
+    expect(component.jugadores.length).toBe(2);
+    expect(component.jugadores[0]._id).toBe('1');
+    expect(component.cargando).toBeFalse();
   });
 
   // Test 3 -> Los jugadores pueden filtrarse por nombre
@@ -66,8 +70,8 @@ describe('PlayersComponent - Unitarias', () => {
 
     component.buscador = 'prueba1';
 
-    jExpect(component.jugadoresFiltrados.length).toBe(1);
-    jExpect(component.jugadoresFiltrados[0].usuario).toBe('Prueba1');
+    expect(component.jugadoresFiltrados.length).toBe(1);
+    expect(component.jugadoresFiltrados[0].usuario).toBe('Prueba1');
   });
 
 });
@@ -88,6 +92,7 @@ describe('PlayersComponent - Integración HTTP', () => {
     await TestBed.configureTestingModule({
       declarations: [PlayersComponent],
       imports: [HttpClientTestingModule],
+      schemas: [NO_ERRORS_SCHEMA],
       providers: [PlayerService]
     }).compileComponents();
 
@@ -99,7 +104,7 @@ describe('PlayersComponent - Integración HTTP', () => {
   it('Obtiene jugadores desde el servicio y los asigna al componente', () => {
     component.ngOnInit();
     const req = httpMock.expectOne(`${environment.apiUrl}/players`);
-    jExpect(req.request.method).toBe('GET');
+    expect(req.request.method).toBe('GET');
     req.flush([
       {
         _id: '1',
@@ -109,8 +114,12 @@ describe('PlayersComponent - Integración HTTP', () => {
         equipo: 'A'
       }
     ]);
+
+    expect(component.jugadores.length).toBe(1);
+    expect(component.jugadores[0]._id).toBe('1');
+    expect(component.cargando).toBeFalse();
   });
-    afterEach(() => {
+  afterEach(() => {
     httpMock.verify();
   });
 });

@@ -10,6 +10,7 @@
 /node_modules
 npm-debug.log
 yarn-error.log
+pnpm-debug.log*
 
 # IDEs and editors
 .idea/
@@ -38,6 +39,31 @@ testem.log
 /typings
 /cypress/screenshots
 /cypress/videos
+
+# Frontend Angular
+/frontend/node_modules
+/frontend/dist
+/frontend/coverage
+/frontend/.angular/cache
+/frontend/cypress/screenshots
+/frontend/cypress/videos
+
+# Backend Laravel
+/backend/vendor
+/backend/node_modules
+/backend/public/build
+/backend/public/hot
+/backend/storage/logs/*.log
+
+# Documentos sensibles
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
 
 # System files
 .DS_Store
