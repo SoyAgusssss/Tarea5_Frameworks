@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/proyecto-ut2",
+            "outputPath": "dist/proyecto-ut5",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -107,5 +107,5 @@
       }
     }
   },
-  "defaultProject": "Proyecto_UT2"
+  "defaultProject": "Proyecto_UT5"
 }
