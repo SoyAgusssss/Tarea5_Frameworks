@@ -1,10 +1,8 @@
 FROM php:8.2-cli
 
 RUN apt-get update && apt-get install -y \
-    unzip \
-    curl \
-    libpq-dev \
-    && docker-php-ext-install pdo pdo_sqlite \
+    git curl zip unzip libpng-dev libonig-dev libxml2-dev libpq-dev \
+    && docker-php-ext-install pdo_mysql pdo_pgsql mbstring exif pcntl bcmath gd \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
